@@ -15,7 +15,14 @@ minikubeVM: Running
 localkube: Running
 ```
 
-Verify kubectl is installed:
+Verify kubectl is installed and set to the minikube context:
+
+```
+kubectl config current-context
+```
+```
+minikube
+```
 
 ```
 kubectl version
