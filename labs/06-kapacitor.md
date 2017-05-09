@@ -37,6 +37,10 @@ Add the following env vars:
 
 ## Verify The Kapacitor Installation
 
+Install the kapacitor CLI tool:
+
+[https://portal.influxdata.com/downloads#kapacitor](https://portal.influxdata.com/downloads#kapacitor)
+
 ```
 export KAPACITOR_URL=$(minikube service kapacitor-kapacitor --url)
 ```

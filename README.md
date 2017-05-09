@@ -8,3 +8,4 @@
 * [Install Telegraf](labs/04-telegraf.md)
 * [Install Chronograf](labs/05-chronograf.md)
 * [Install Kapacitor](labs/06-kapacitor.md)
+* [Autoscaling with Kapacitor](labs/07-autoscaling.md)

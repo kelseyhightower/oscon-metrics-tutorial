@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: app
+spec:
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: quay.io/influxdb/k8s-kapacitor-autoscale:0.0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        env:
+          - name: "APP_REPLICASET"
+            value: "app"
+          - name: "APP_INFLUXDB_URL"
+            value: "http://kapacitor-kapacitor:9092/write?db=autoscale&rp=autogen&precision=s"

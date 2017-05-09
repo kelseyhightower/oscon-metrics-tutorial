@@ -1,0 +1,45 @@
+// Target is the desired number of requests per second per host.
+var target = 2.0
+
+// Only one increase event will be triggered per increase_cooldown.
+var increase_cooldown = 1m
+
+// Only one decrease event will be triggered per decrease_cooldown
+var decrease_cooldown = 2m
+
+// Moving_avg_count is the number of points to use in a moving average
+// as input to the k8sAutoscale node.
+// Points arrive at one per second.
+var moving_avg_count = 60
+
+// Scale each replicaset that is reporting is request counts to Kapacitor.
+stream
+    |from()
+        .measurement('requests')
+        .groupBy('host', 'replicaset')
+        // we get points evey second so drop any noise on the data
+        .truncate(1s)
+    // Compute the rate of requests per second per host
+    |derivative('value')
+        .as('requests_per_second')
+        .unit(1s)
+        .nonNegative()
+    // Compute the total_requests_per_second per replicaset across all hosts
+    |groupBy('replicaset')
+    |sum('requests_per_second')
+        .as('total_requests_per_second')
+    // Compute the moving average of the total_requests_per_second per replicaset
+    |movingAverage('total_requests_per_second', moving_avg_count)
+        .as('avg_requests_per_second')
+    // Using the avg_requests_per_second autoscale each replicaset.
+    |k8sAutoscale()
+        // We are scaling a replicaset.
+        .kind('replicasets')
+        // The name of the replicaset to scale is found in the 'replicaset' tag.
+        .resourceNameTag('replicaset')
+        // Set the cool down timer values.
+        .increaseCooldown(increase_cooldown)
+        .decreaseCooldown(decrease_cooldown)
+        // Compute the desired number of replicas based on the
+        // avg_requests_per_second and target values.
+        .replicas(lambda: int(ceil("avg_requests_per_second" / target)))
