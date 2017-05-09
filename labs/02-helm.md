@@ -35,5 +35,5 @@ helm ls
 Delete the mysql deployment
 
 ```
-helm delete oscon-mysql
+helm delete oscon-mysql --purge
 ```
