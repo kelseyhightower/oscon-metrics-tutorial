@@ -8,6 +8,7 @@
 
 ```
 helm install stable/chronograf --name chronograf \
+  --set image.tag=1.3.0 \
   --set service.type=NodePort
 ```
 
