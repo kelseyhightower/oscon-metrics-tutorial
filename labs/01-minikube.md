@@ -4,6 +4,8 @@ In this lab you will make sure that [minikube](https://github.com/kubernetes/min
 
 ## Verify the Minikube Installation
 
+Ensure minikube is running:
+
 ```
 minikube status
 ```
@@ -12,6 +14,8 @@ minikube status
 minikubeVM: Running
 localkube: Running
 ```
+
+Verify kubectl is installed:
 
 ```
 kubectl version
