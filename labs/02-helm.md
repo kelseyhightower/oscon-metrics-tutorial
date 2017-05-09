@@ -2,6 +2,10 @@
 
 In this lab you will install [helm](https://github.com/kubernetes/helm) on your local machine.
 
+## What is Helm?
+
+[Introduction to Helm](https://github.com/kubernetes/helm#kubernetes-helm)
+
 ## Install Helm
 
 Install helm using the [installation docs](https://github.com/kubernetes/helm#install)
