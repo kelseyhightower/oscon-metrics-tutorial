@@ -3,7 +3,7 @@
 
 ## What is Telegraf?
 
-[Introduction to Telegraf](https://docs.influxdata.com/telegraf/v1.2)
+[Introduction to Telegraf](https://docs.influxdata.com/telegraf/v1.3)
 
 ## Install Telegraf
 
