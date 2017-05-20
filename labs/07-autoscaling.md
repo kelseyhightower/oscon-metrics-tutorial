@@ -10,13 +10,18 @@ Create the `app` replicaset:
 kubectl create -f https://raw.githubusercontent.com/kelseyhightower/oscon-metrics-tutorial/master/replicasets/app.yaml
 ```
 
-Create the `app` service
+Create the `app` service:
 
 ```
 kubectl create -f https://raw.githubusercontent.com/kelseyhightower/oscon-metrics-tutorial/master/services/app.yaml
 ```
 
 ## Define and Enable the Autoscale Task
+
+Pull autoscale TICKscript task:
+```
+curl -O https://raw.githubusercontent.com/influxdata/k8s-kapacitor-autoscale/master/autoscale.tick
+```
 
 ```
 kapacitor define autoscale -tick autoscale.tick -type stream -dbrp autoscale.autogen
